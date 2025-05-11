@@ -19,14 +19,14 @@ model Product {
   name        String
   slug        String   @unique(map: "product_slug_idx")
   category    String
-  image       String[]
+  images      String[]
   brand       String
   description String
   stock       Int
-  price       Decimal  @default(0) @db.Decimal(12, 2)
-  rating      Decimal  @default(0) @db.Decimal(3, 2)
+  price       Float    @default(0)
+  rating      Float    @default(0)
   numReviews  Int      @default(0)
-  isFeatured  Boolean
+  isFeatured  Boolean  @default(false)
   banner      String?
   createdAt   DateTime @default(now()) @db.Timestamp(6)
 }
