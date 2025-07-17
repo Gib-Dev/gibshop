@@ -3,10 +3,10 @@ const ProductPrice = ({
   value,
   className,
 }: {
-  value: number;
+  value: number | string;
   className?: string;
 }) => {
-  const stringValue = value.toFixed(2);
+  const stringValue = typeof value === 'number' ? value.toFixed(2) : value;
 
   const [intValue, floatValue] = stringValue.split(".");
 

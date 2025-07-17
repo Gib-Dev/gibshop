@@ -1,3 +1,5 @@
+"use client";
+
 import ModeToggle from "./mode-toggle";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -9,15 +11,27 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { useCart } from "@/lib/context/cart-context";
 
 const Menu = () => {
+  const { state } = useCart();
+  
   return (
     <div className="flex justify-end gap-3">
       <nav className="hidden md:flex w-full max-w-xs gap-1">
         <ModeToggle />
         <Button asChild variant="ghost">
+          <Link href="/products">Products</Link>
+        </Button>
+        <Button asChild variant="ghost" className="relative">
           <Link href="/cart">
-            <ShoppingCart /> Cart
+            <ShoppingCart />
+            {state.itemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {state.itemCount}
+              </span>
+            )}
+            Cart
           </Link>
         </Button>
         <Button asChild>
@@ -35,8 +49,17 @@ const Menu = () => {
             <SheetTitle>Menu</SheetTitle>
             <ModeToggle />
             <Button asChild variant="ghost">
+              <Link href="/products">Products</Link>
+            </Button>
+            <Button asChild variant="ghost" className="relative">
               <Link href="/cart">
-                <ShoppingCart /> Cart
+                <ShoppingCart />
+                {state.itemCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {state.itemCount}
+                  </span>
+                )}
+                Cart
               </Link>
             </Button>
             <Button asChild>

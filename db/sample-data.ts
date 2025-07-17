@@ -105,4 +105,4 @@ const sampleData = {
   ],
 };
 
-export default sampleData;
+module.exports = sampleData;
