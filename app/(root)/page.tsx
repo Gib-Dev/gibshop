@@ -1,7 +1,8 @@
+import { getLatestProducts, getFeaturedProducts } from "@/lib/actions/product.actions";
+
 const Homepage = async () => {
-  // Temporarily disabled for build testing
-  // const latestProducts = await getLatestProducts();
-  // const featuredProducts = await getFeaturedProducts();
+  const latestProducts = await getLatestProducts();
+  const featuredProducts = await getFeaturedProducts();
 
   return (
     <div className="space-y-12">
@@ -26,13 +27,37 @@ const Homepage = async () => {
       {/* Featured Products */}
       <div className="text-center py-8">
         <h2 className="text-2xl font-bold mb-4">Featured Products</h2>
-        <p className="text-gray-600">Products will be loaded here</p>
+        {featuredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredProducts.map((product) => (
+              <div key={product.id} className="bg-white rounded-lg shadow-md p-6">
+                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                <p className="text-gray-600 mb-4">{product.description}</p>
+                <p className="text-xl font-bold text-blue-600">${product.price}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-600">No featured products available</p>
+        )}
       </div>
       
       {/* Latest Products */}
       <div className="text-center py-8">
         <h2 className="text-2xl font-bold mb-4">Newest Arrivals</h2>
-        <p className="text-gray-600">Products will be loaded here</p>
+        {latestProducts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {latestProducts.map((product) => (
+              <div key={product.id} className="bg-white rounded-lg shadow-md p-6">
+                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                <p className="text-gray-600 mb-4">{product.description}</p>
+                <p className="text-xl font-bold text-blue-600">${product.price}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-600">No products available</p>
+        )}
       </div>
     </div>
   );
