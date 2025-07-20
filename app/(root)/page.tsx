@@ -1,4 +1,6 @@
 import { getLatestProducts, getFeaturedProducts } from "@/lib/actions/product.actions";
+import { Product } from "@/types";
+import Image from "next/image";
 
 const Homepage = async () => {
   const latestProducts = await getLatestProducts();
@@ -29,11 +31,30 @@ const Homepage = async () => {
         <h2 className="text-2xl font-bold mb-4">Featured Products</h2>
         {featuredProducts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProducts.map((product) => (
-              <div key={product.id} className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                <p className="text-gray-600 mb-4">{product.description}</p>
-                <p className="text-xl font-bold text-blue-600">${product.price}</p>
+            {featuredProducts.map((product: Product) => (
+              <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                {product.images && product.images.length > 0 && (
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={product.images[0]}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                  <p className="text-gray-600 mb-4 line-clamp-2">{product.description}</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-xl font-bold text-blue-600">${product.price}</p>
+                    <div className="flex items-center">
+                      <span className="text-yellow-400">★</span>
+                      <span className="ml-1 text-sm text-gray-600">{product.rating}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -47,11 +68,30 @@ const Homepage = async () => {
         <h2 className="text-2xl font-bold mb-4">Newest Arrivals</h2>
         {latestProducts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestProducts.map((product) => (
-              <div key={product.id} className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                <p className="text-gray-600 mb-4">{product.description}</p>
-                <p className="text-xl font-bold text-blue-600">${product.price}</p>
+            {latestProducts.map((product: Product) => (
+              <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                {product.images && product.images.length > 0 && (
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={product.images[0]}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                  <p className="text-gray-600 mb-4 line-clamp-2">{product.description}</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-xl font-bold text-blue-600">${product.price}</p>
+                    <div className="flex items-center">
+                      <span className="text-yellow-400">★</span>
+                      <span className="ml-1 text-sm text-gray-600">{product.rating}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
